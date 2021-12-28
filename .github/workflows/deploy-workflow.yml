@@ -3,10 +3,10 @@ on:
     branches:
       - main
 
-name: Deploy Workflow
+name: Deployment
 jobs:
-  documentation:
-    name: Deploy to gh-pages
+  deploy:
+    name: Deploy to Github Pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,6 +15,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
+      - name: Use cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       - name: Install packages
         run: npm ci
       - name: Build project
@@ -23,7 +30,7 @@ jobs:
         run: npm run export
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
-      - name: Deploy
+      - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
