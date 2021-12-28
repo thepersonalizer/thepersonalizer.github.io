@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Deploy Workflow
+jobs:
+  documentation:
+    name: Deploy to gh-pages
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node.js environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install packages
+        run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Export static files
+        run: npm run export
+      - name: Add .nojekyll file
+        run: touch ./out/.nojekyll
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: out
