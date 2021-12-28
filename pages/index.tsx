@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import styled from '@emotion/styled';
 import { SVGProps } from 'react';
+import Head from 'next/head';
 
 const Container = styled.div`
   height: 100%;
@@ -32,7 +33,7 @@ const Logo = ({ fill, width, height }: SVGProps<SVGElement>) => (
 );
 
 const Title = styled.h1`
-  color: #ffa500;
+  color: #ffa939;
   font-size: 2.2rem;
   font-weight: 900;
   font-style: italic;
@@ -41,10 +42,14 @@ const Title = styled.h1`
 `;
 
 const Home: NextPage = () => (
-  <Container>
-    <Logo fill="#FFA500" height={200} />
-    <Title>COMING SOON...</Title>
-  </Container>
+  <>
+    <Head>
+      <title>The Personalizer</title>
+    </Head>
+    <Container>
+      <Logo fill="#ffa939" height={200} />
+      <Title>COMING SOON...</Title>
+    </Container>
+  </>
 );
-
 export default Home;

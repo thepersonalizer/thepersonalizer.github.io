@@ -27,16 +27,16 @@ a {
 @keyframes pulse {
   0% {
     stroke-width: 0;
-    stroke: #ffa500aa;
+    stroke: #ffa939;
   }
   100% {
     stroke-width: 20;
-    stroke: #ffa50000;
+    stroke: #FF000000;
   }
 }
 
 .logo_svg_container g path {
-  animation: pulse 2.5s infinite;
+  animation: pulse 1.8s infinite;
   -webkit-transform-origin: center center;
   transform-origin: center center;
   opacity: 1;
